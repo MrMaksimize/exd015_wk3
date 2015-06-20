@@ -1,0 +1,4 @@
+*.zip
+*.rds
+.R*
+*.Rproj
