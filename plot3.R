@@ -19,10 +19,11 @@ bpol <- NEI %>%
 
 g <- ggplot(data = bpol, aes(year, total_emissions)) +
   geom_line(aes(color=type), size=2) +
-  facet_grid(type ~ ., scales="free_y")
+  facet_grid(type ~ ., scales="free_y") +
+  labs(title="Total Emissions in Baltimore By Type", y = "Coal Emissions (tons)")
 
 print(g)
 
 
-#dev.copy(png, file="./plot1.png")
-#dev.off()
+dev.copy(png, file="./plot3.png")
+dev.off()

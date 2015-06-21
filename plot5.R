@@ -12,26 +12,28 @@ if (!exists('NEI') || !exists('SCC')) {
   SCC <- tbl_df(readRDS("Source_Classification_Code.rds"))
 }
 
-coal_cats <- SCC %>%
-  filter(
-    grepl("coal", Short.Name, ignore.case = TRUE) |
-    grepl("coal", EI.Sector, ignore.case = TRUE)
-  ) %>%
+
+car_cats <- SCC %>%
+  filter(grepl("vehicle", EI.Sector, ignore.case = TRUE)) %>%
   mutate(SCC = as.character(SCC))
 
 
-cpol <- NEI %>%
+mvpol <- NEI %>%
   mutate(SCC = as.character(SCC)) %>%
-  semi_join(coal_cats, by = "SCC") %>%
+  filter(fips == "24510") %>%
+  semi_join(car_cats, by = "SCC") %>%
   group_by(year) %>%
-  summarise(coal_emissions = sum(Emissions))
+  summarise(mv_emissions = sum(Emissions))
 
-g <- ggplot(data = cpol, aes(year, coal_emissions)) +
+g <- ggplot(data = mvpol, aes(year, mv_emissions)) +
   geom_line(color="blue", size=2) +
-  labs(title="Total Coal Emissions in the US by Year", y = "Coal Emissions (tons)")
+  labs(
+    title="Total Motor Vehicle Emissions in Baltimore by Year",
+    y = "Motor Vehcile Emissions (tons)"
+  )
 
-print(g)
+ print(g)
 
 
-dev.copy(png, file="./plot4.png")
+dev.copy(png, file="./plot5.png")
 dev.off()

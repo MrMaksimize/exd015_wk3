@@ -30,5 +30,5 @@ with(pol_year, plot(
 
 
 
-#dev.copy(png, file="./plot1.png")
-#dev.off()
+dev.copy(png, file="./plot1.png")
+dev.off()
