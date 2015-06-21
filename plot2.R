@@ -13,6 +13,7 @@ if (!exists('NEI') || !exists('SCC')) {
 }
 
 pol_year <- NEI %>%
+  filter(fips == "24510") %>%
   group_by(year) %>%
   summarise(total_emissions = sum(Emissions))
 
@@ -21,7 +22,7 @@ with(pol_year, plot(
   lwd = 3,
   year,
   total_emissions/1000000,
-  main = "Total Emissions By Year",
+  main = "Total Emissions By Year in Baltimore City",
   type="b",
   col = "blue",
   ylab = "Total Emissions (in millions of tons)"
@@ -30,5 +31,5 @@ with(pol_year, plot(
 
 
 
-#dev.copy(png, file="./plot1.png")
+#dev.copy(png, file="./plot2.png")
 #dev.off()
