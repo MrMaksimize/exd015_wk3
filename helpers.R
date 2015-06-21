@@ -1,11 +1,12 @@
 init <- function() {
   # Auto Install Packages
-  list.of.packages <- c("dplyr")
+  list.of.packages <- c("dplyr", "ggplot2")
   new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
   if(length(new.packages)) install.packages(new.packages)
 
   ## Bring in the libs.
   library(dplyr)
+  library(ggplot2)
 
   ## Download data if needed.
   dlData()

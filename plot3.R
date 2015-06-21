@@ -13,13 +13,13 @@ if (!exists('NEI') || !exists('SCC')) {
 }
 
 bpol <- NEI %>%
-  filter(fips == "24510")
+  filter(fips == "24510") %>%
+  group_by(year, type) %>%
+  summarise(total_emissions = sum(Emissions))
 
-g <- ggplot(data = bpol, aes(year, Emissions)) +
-  coord_cartesian(ylim = c(-100, 500)) +
-  geom_point(aes(color=type), alpha=1/2) +
-  geom_smooth(method="lm") +
-  facet_grid(type ~ .)
+g <- ggplot(data = bpol, aes(year, total_emissions)) +
+  geom_line(aes(color=type), size=2) +
+  facet_grid(type ~ ., scales="free_y")
 
 print(g)
 
